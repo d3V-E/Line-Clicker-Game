@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://byxhws7r3vjyv" path="res://scripts/main_game.gd" id="1_72e8q"]
 [ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_s3esy"]
+[ext_resource type="Texture2D" uid="uid://byqftffmv0lon" path="res://assets/SHOP Button.png" id="3_d2op2"]
+[ext_resource type="Texture2D" uid="uid://3305w7cubpbw" path="res://assets/Line Bar.png" id="4_ygxny"]
+[ext_resource type="Texture2D" uid="uid://s6qjtkeqsq5d" path="res://assets/Green Indicator.png" id="5_wi4c7"]
+[ext_resource type="Texture2D" uid="uid://plt2drchkexg" path="res://assets/Indicator.png" id="6_70vka"]
 
 [node name="Main Game" type="Node2D" unique_id=423972222]
 script = ExtResource("1_72e8q")
@@ -33,3 +37,26 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/normal_font_size = 17
 text = "Score "
 text_direction = 2
+
+[node name="Shop Button" type="TextureButton" parent="CanvasLayer" unique_id=40754753]
+offset_left = 532.57574
+offset_top = 303.0
+offset_right = 635.0
+offset_bottom = 355.0
+texture_normal = ExtResource("3_d2op2")
+stretch_mode = 0
+
+[node name="LineBar" type="Sprite2D" parent="CanvasLayer" unique_id=434298229]
+position = Vector2(320, 180)
+texture = ExtResource("4_ygxny")
+
+[node name="GreenIndicator" type="Sprite2D" parent="CanvasLayer/LineBar" unique_id=1803387451]
+position = Vector2(-146, 0)
+texture = ExtResource("5_wi4c7")
+
+[node name="Indicator" type="Sprite2D" parent="CanvasLayer" unique_id=934744288]
+position = Vector2(120, 180)
+texture = ExtResource("6_70vka")
+
+[connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
