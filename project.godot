@@ -11,17 +11,27 @@ config_version=5
 [application]
 
 config/name="Line Clicker Game"
+run/main_scene="uid://dqvarotspa7o"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=1
+window/stretch/mode="viewport"
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[importer_defaults]
+
+animation_library={
+&"animation/fps": 60.0
+}
 
 [physics]
 
@@ -29,4 +39,5 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

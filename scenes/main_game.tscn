@@ -1,3 +1,35 @@
 [gd_scene format=3 uid="uid://dqvarotspa7o"]
 
+[ext_resource type="Script" uid="uid://byxhws7r3vjyv" path="res://scripts/main_game.gd" id="1_72e8q"]
+[ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_s3esy"]
+
 [node name="Main Game" type="Node2D" unique_id=423972222]
+script = ExtResource("1_72e8q")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1289467125]
+
+[node name="MainBackground" type="Sprite2D" parent="CanvasLayer" unique_id=1372752214]
+position = Vector2(320, 180)
+texture = ExtResource("1_s3esy")
+
+[node name="Score" type="RichTextLabel" parent="CanvasLayer" unique_id=1204260550]
+offset_left = 411.0
+offset_top = 29.0
+offset_right = 633.0
+offset_bottom = 68.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 28
+text = "0"
+text_direction = 2
+
+[node name="Score Header" type="RichTextLabel" parent="CanvasLayer" unique_id=606523075]
+offset_left = 573.0
+offset_top = 5.0
+offset_right = 633.0
+offset_bottom = 29.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 17
+text = "Score "
+text_direction = 2
