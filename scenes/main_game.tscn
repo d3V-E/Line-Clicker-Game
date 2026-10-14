@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://plt2drchkexg" path="res://assets/Indicator.png" id="6_70vka"]
 [ext_resource type="Texture2D" uid="uid://q5u0jswbi3bi" path="res://assets/Hit.png" id="7_wi4c7"]
 [ext_resource type="Texture2D" uid="uid://d263mtcymdwjw" path="res://assets/HP.png" id="8_70vka"]
+[ext_resource type="Texture2D" uid="uid://dgrlw7tsnflqa" path="res://assets/Shop.png" id="9_nqdth"]
+[ext_resource type="Texture2D" uid="uid://bsim58uomd8dx" path="res://assets/Close.png" id="10_5cypo"]
 
 [node name="Main Game" type="Node2D" unique_id=423972222]
 script = ExtResource("1_72e8q")
@@ -80,6 +82,55 @@ visible = false
 position = Vector2(321, 179)
 texture = ExtResource("7_wi4c7")
 
+[node name="Lives Label" type="RichTextLabel" parent="CanvasLayer" unique_id=886296370]
+offset_left = 5.0
+offset_right = 107.0
+offset_bottom = 36.0
+theme_override_font_sizes/normal_font_size = 26
+text = "LIVES"
+
+[node name="Shop" type="Sprite2D" parent="CanvasLayer" unique_id=1093649891]
+visible = false
+position = Vector2(320, 200)
+texture = ExtResource("9_nqdth")
+
+[node name="Shop Close" type="TextureButton" parent="CanvasLayer" unique_id=812630958]
+visible = false
+offset_left = 512.0
+offset_top = 86.0
+offset_right = 544.0
+offset_bottom = 118.0
+texture_normal = ExtResource("10_5cypo")
+stretch_mode = 0
+
+[node name="Highscore Header" type="RichTextLabel" parent="CanvasLayer" unique_id=1162866656]
+offset_left = 216.0
+offset_top = 5.0
+offset_right = 317.0
+offset_bottom = 29.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 17
+text = "High Score"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_direction = 2
+
+[node name="Highscore" type="RichTextLabel" parent="CanvasLayer" unique_id=588167767]
+offset_left = 216.0
+offset_top = 29.0
+offset_right = 360.0
+offset_bottom = 68.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 28
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_direction = 2
+
 [connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_down"]
+[connection signal="button_up" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_up"]

@@ -8,7 +8,8 @@ var width = 200
 var multiplier = 1
 var lives = 3
 var speedcheckpoint = 10
-var clicks = 10
+var clicks = 0
+var highscore = 0
 
 @onready var shopbutton: TextureButton = $"CanvasLayer/Shop Button"
 @onready var bar: Sprite2D = $CanvasLayer/LineBar
@@ -18,18 +19,20 @@ var clicks = 10
 @onready var hp1 : Sprite2D = $CanvasLayer/Hp1
 @onready var hp2 : Sprite2D = $CanvasLayer/Hp2
 @onready var hp3 : Sprite2D = $CanvasLayer/Hp3
-
+@onready var shopmenu: Sprite2D = $CanvasLayer/Shop
+@onready var shopclose : TextureButton = $"CanvasLayer/Shop Close"
 
 
 signal score_changed
 signal multiplier_changed
+signal highscore_changed
 
 
 func save_data():
 	var data = {
 		"score": score,
 		"multiplier": multiplier,
-		"lives": lives,
+		"highscore": highscore,
 	}
 	var file = FileAccess.open(save_path ,FileAccess.WRITE)
 	file.store_var(data)
@@ -43,17 +46,22 @@ func load_data():
 		if typeof(data) == TYPE_DICTIONARY:
 			score = data.get("score" ,0)
 			multiplier = data.get("multiplier" ,1)
-			lives = data.get("lives" ,3)
+			highscore = data.get("highscore" ,0)
 	else:
 		save_data()
 
 
 
 func _ready():
+	load_data()
 	shopbutton.pivot_offset = shopbutton.size / 2
+	shopclose.pivot_offset = shopclose.size / 2
 	$CanvasLayer/Score.text = str(score)
 	hit.visible = false
-	load_data()
+	shopmenu.visible = false
+	shopbutton.visible = true
+	shopclose.visible = false
+	$CanvasLayer/Highscore.text = str(highscore)
 	randomize()
 	reset_marker()
 
@@ -108,6 +116,9 @@ func _on_shop_button_button_down():
 func _on_shop_button_button_up():
 	var tween = get_tree().create_tween()
 	tween.tween_property(shopbutton , "scale" , Vector2(1 , 1) ,.1)
+	shopbutton.visible = false
+	shopmenu.visible = true
+	shopclose.visible = true
 
 
 
@@ -137,9 +148,33 @@ func updlives():
 		hp1.visible = false
 		hp2.visible = false
 		hp3.visible = false
+		if score > highscore:
+			highscore = score
+			emit_signal("highscore_changed")
 		lives = 3
 		speed = 300
 		score = 0
 		clicks = 0
 		save_data()
 		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+
+
+
+
+
+
+
+func _on_shop_close_button_down():
+	var tween = get_tree().create_tween()
+	tween.tween_property(shopclose , "scale" , Vector2(.9 , .9), .1)
+
+
+
+
+
+func _on_shop_close_button_up():
+	var tween = get_tree().create_tween()
+	tween.tween_property(shopclose , "scale" , Vector2(1 , 1) , .1)
+	shopclose.visible = false
+	shopmenu.visible = false
+	shopbutton.visible = true
