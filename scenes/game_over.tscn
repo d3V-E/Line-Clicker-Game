@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dy8tsi4d1tcir" path="res://scripts/game_over.gd" id="1_wqhvx"]
 [ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_xeevv"]
+[ext_resource type="Texture2D" uid="uid://m3orf138pdoo" path="res://assets/Retry Button.png" id="3_tbwuq"]
 
 [node name="Game Over" type="Node2D" unique_id=312543711]
 script = ExtResource("1_wqhvx")
@@ -57,3 +58,21 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/normal_font_size = 22
 text = "\"Place Holder\""
 horizontal_alignment = 1
+
+[node name="Retry" type="TextureButton" parent="CanvasLayer" unique_id=1994036183]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.5
+offset_top = -64.0
+offset_right = 64.5
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("3_tbwuq")
+stretch_mode = 0
+
+[connection signal="button_down" from="CanvasLayer/Retry" to="." method="_on_retry_button_down"]
+[connection signal="button_up" from="CanvasLayer/Retry" to="." method="_on_retry_button_up"]

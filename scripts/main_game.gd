@@ -10,6 +10,7 @@ var lives = 3
 var speedcheckpoint = 10
 var clicks = 0
 var highscore = 0
+var totalscore = 0
 
 @onready var shopbutton: TextureButton = $"CanvasLayer/Shop Button"
 @onready var bar: Sprite2D = $CanvasLayer/LineBar
@@ -23,6 +24,7 @@ var highscore = 0
 @onready var shopclose : TextureButton = $"CanvasLayer/Shop Close"
 
 
+signal totalscore_changed
 signal score_changed
 signal multiplier_changed
 signal highscore_changed
@@ -33,6 +35,7 @@ func save_data():
 		"score": score,
 		"multiplier": multiplier,
 		"highscore": highscore,
+		"totalscore": totalscore,
 	}
 	var file = FileAccess.open(save_path ,FileAccess.WRITE)
 	file.store_var(data)
@@ -47,6 +50,7 @@ func load_data():
 			score = data.get("score" ,0)
 			multiplier = data.get("multiplier" ,1)
 			highscore = data.get("highscore" ,0)
+			totalscore = data.get("totalscore" ,0)
 	else:
 		save_data()
 
@@ -62,6 +66,7 @@ func _ready():
 	shopbutton.visible = true
 	shopclose.visible = false
 	$CanvasLayer/Highscore.text = str(highscore)
+	$"CanvasLayer/Shop/Total Score".text = str(totalscore)
 	randomize()
 	reset_marker()
 
@@ -81,18 +86,23 @@ func _unhandled_input(event: InputEvent):
 		var greenmax = bar.position.x + green.position.x + (green.scale.x * 50)
 		
 		if needle.position.x >= greenmin and needle.position.x <= greenmax:
+			var tween = get_tree().create_tween()
+			tween.tween_property(green , "scale" , Vector2(1.1 , 1.1) , .1)
 			score += (2 * multiplier)
 			$CanvasLayer/Score.text = str(score)
 			emit_signal("score_changed")
+			tween.tween_property(green , "scale" , Vector2(1 , 1), .1)
 			clicks += 1
 			if clicks > 0 and clicks % 10 == 0:
-				speed += 15
+				speed += 25
 		else:
 			lives -= 1
 			if score >= 1:
 				score -= 1
 			$CanvasLayer/Score.text = str(score)
 			updlives()
+			if lives <= 0 :
+				return
 			hit.visible = true
 			if get_tree():
 				await get_tree().create_timer(0.1).timeout
@@ -116,6 +126,7 @@ func _on_shop_button_button_down():
 func _on_shop_button_button_up():
 	var tween = get_tree().create_tween()
 	tween.tween_property(shopbutton , "scale" , Vector2(1 , 1) ,.1)
+	$"CanvasLayer/Shop/Total Score".text = str(totalscore)
 	shopbutton.visible = false
 	shopmenu.visible = true
 	shopclose.visible = true
@@ -148,6 +159,8 @@ func updlives():
 		hp1.visible = false
 		hp2.visible = false
 		hp3.visible = false
+		totalscore += score
+		emit_signal("totalscore_changed")
 		if score > highscore:
 			highscore = score
 			emit_signal("highscore_changed")

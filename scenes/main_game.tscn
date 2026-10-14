@@ -77,11 +77,6 @@ texture = ExtResource("8_70vka")
 position = Vector2(95, 52)
 texture = ExtResource("8_70vka")
 
-[node name="Hit" type="Sprite2D" parent="CanvasLayer" unique_id=713465082]
-visible = false
-position = Vector2(321, 179)
-texture = ExtResource("7_wi4c7")
-
 [node name="Lives Label" type="RichTextLabel" parent="CanvasLayer" unique_id=886296370]
 offset_left = 5.0
 offset_right = 107.0
@@ -90,12 +85,33 @@ theme_override_font_sizes/normal_font_size = 26
 text = "LIVES"
 
 [node name="Shop" type="Sprite2D" parent="CanvasLayer" unique_id=1093649891]
-visible = false
 position = Vector2(320, 200)
 texture = ExtResource("9_nqdth")
 
+[node name="Total Score Header" type="RichTextLabel" parent="CanvasLayer/Shop" unique_id=1559483938]
+offset_left = -224.0
+offset_top = -114.0
+offset_right = -71.0
+offset_bottom = -82.0
+theme_override_font_sizes/normal_font_size = 22
+text = "TOTAL SCORE:"
+
+[node name="Total Score" type="RichTextLabel" parent="CanvasLayer/Shop" unique_id=1925108345]
+anchors_preset = -1
+anchor_top = 0.015384615
+anchor_bottom = 0.015384615
+offset_left = -66.0
+offset_top = -118.0
+offset_right = 78.0
+offset_bottom = -82.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 22
+text = "0"
+horizontal_alignment = 2
+text_direction = 2
+
 [node name="Shop Close" type="TextureButton" parent="CanvasLayer" unique_id=812630958]
-visible = false
 offset_left = 512.0
 offset_top = 86.0
 offset_right = 544.0
@@ -128,6 +144,11 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 text_direction = 2
+
+[node name="Hit" type="Sprite2D" parent="CanvasLayer" unique_id=713465082]
+visible = false
+position = Vector2(321, 179)
+texture = ExtResource("7_wi4c7")
 
 [connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
