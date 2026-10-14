@@ -11,6 +11,7 @@ var speedcheckpoint = 10
 var clicks = 0
 var highscore = 0
 var totalscore = 0
+var multipliercost = 75
 
 @onready var shopbutton: TextureButton = $"CanvasLayer/Shop Button"
 @onready var bar: Sprite2D = $CanvasLayer/LineBar
