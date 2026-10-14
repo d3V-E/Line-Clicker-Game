@@ -112,20 +112,23 @@ text = "0"
 horizontal_alignment = 2
 text_direction = 2
 
-[node name="BuyButton" type="Sprite2D" parent="CanvasLayer/Shop" unique_id=902226990]
-position = Vector2(-186, -5)
-scale = Vector2(1.1875, 1.1875)
-texture = ExtResource("9_5cypo")
-
 [node name="Multiplier" type="RichTextLabel" parent="CanvasLayer/Shop" unique_id=1459741158]
 offset_left = -224.0
 offset_top = -86.0
-offset_right = -71.0
+offset_right = -54.0
 offset_bottom = -27.0
 theme_override_font_sizes/normal_font_size = 13
 text = "Multiplier Upgrade
-1 => 1.2
+Current Multiplier = 1
 Cost = 75"
+
+[node name="Multiplier Buy" type="TextureButton" parent="CanvasLayer/Shop" unique_id=1651308040]
+offset_left = -224.0
+offset_top = -24.0
+offset_right = -148.0
+offset_bottom = 14.0
+texture_normal = ExtResource("9_5cypo")
+stretch_mode = 0
 
 [node name="Shop Close" type="TextureButton" parent="CanvasLayer" unique_id=812630958]
 offset_left = 512.0
@@ -169,5 +172,7 @@ texture = ExtResource("7_wi4c7")
 [connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_down"]
+[connection signal="button_up" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_up"]

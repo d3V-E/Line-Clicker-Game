@@ -23,6 +23,7 @@ var multipliercost = 75
 @onready var hp3 : Sprite2D = $CanvasLayer/Hp3
 @onready var shopmenu: Sprite2D = $CanvasLayer/Shop
 @onready var shopclose : TextureButton = $"CanvasLayer/Shop Close"
+@onready var multiplierbuy: TextureButton = $"CanvasLayer/Shop/Multiplier Buy"
 
 
 signal totalscore_changed
@@ -85,7 +86,8 @@ func _unhandled_input(event: InputEvent):
 	if (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT) or (event is InputEventKey and event.pressed and event.keycode == KEY_SPACE):
 		var greenmin = bar.position.x + green.position.x - (green.scale.x * 50)
 		var greenmax = bar.position.x + green.position.x + (green.scale.x * 50)
-		
+		if shopmenu.visible == true:
+			return
 		if needle.position.x >= greenmin and needle.position.x <= greenmax:
 			var tween = get_tree().create_tween()
 			tween.tween_property(green , "scale" , Vector2(1.1 , 1.1) , .1)
@@ -192,3 +194,25 @@ func _on_shop_close_button_up():
 	shopclose.visible = false
 	shopmenu.visible = false
 	shopbutton.visible = true
+
+
+
+
+
+func _on_multiplier_buy_button_down():
+	var tween = get_tree().create_tween()
+	tween.tween_property(multiplierbuy , "scale" , Vector2(.9 , .9), .1)
+
+
+
+
+func _on_multiplier_buy_button_up():
+	var tween = get_tree().create_tween()
+	tween.tween_property(multiplierbuy , "scale" , Vector2(1 , 1), .1)
+	if totalscore >= multipliercost:
+		totalscore -= multipliercost
+		multiplier = 1.2
+		multipliercost += 45
+		$CanvasLayer/Shop/Multiplier.text = "Multiplier Upgrade\nCurrent Multiplier = "+ multiplier "\nCost = " + multipliercost
+		emit_signal("totalscore_changed")
+		emit_signal("multiplier_changed")
