@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://wf77i7tl7l5u"]
+
+[ext_resource type="Script" uid="uid://dy8tsi4d1tcir" path="res://scripts/game_over.gd" id="1_wqhvx"]
+[ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_xeevv"]
+
+[node name="Game Over" type="Node2D" unique_id=312543711]
+script = ExtResource("1_wqhvx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=605898777]
+
+[node name="MainBackground" type="Sprite2D" parent="CanvasLayer" unique_id=1754372507]
+position = Vector2(320, 180)
+texture = ExtResource("1_xeevv")
+
+[node name="Gameover Label" type="RichTextLabel" parent="CanvasLayer" unique_id=675138889]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -67.0
+offset_right = 108.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/normal_font_size = 35
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Timer" parent="CanvasLayer" unique_id=1589668329]
+wait_time = 5.0
+one_shot = true
+autostart = true

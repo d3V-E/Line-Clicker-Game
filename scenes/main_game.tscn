@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://3305w7cubpbw" path="res://assets/Line Bar.png" id="4_ygxny"]
 [ext_resource type="Texture2D" uid="uid://s6qjtkeqsq5d" path="res://assets/Green Indicator.png" id="5_wi4c7"]
 [ext_resource type="Texture2D" uid="uid://plt2drchkexg" path="res://assets/Indicator.png" id="6_70vka"]
+[ext_resource type="Texture2D" uid="uid://q5u0jswbi3bi" path="res://assets/Hit.png" id="7_wi4c7"]
+[ext_resource type="Texture2D" uid="uid://d263mtcymdwjw" path="res://assets/HP.png" id="8_70vka"]
 
 [node name="Main Game" type="Node2D" unique_id=423972222]
 script = ExtResource("1_72e8q")
@@ -26,6 +28,9 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/normal_font_size = 28
 text = "0"
 text_direction = 2
+
+[node name="Score Update" type="Timer" parent="CanvasLayer/Score" unique_id=274760974]
+autostart = true
 
 [node name="Score Header" type="RichTextLabel" parent="CanvasLayer" unique_id=606523075]
 offset_left = 573.0
@@ -58,5 +63,23 @@ texture = ExtResource("5_wi4c7")
 position = Vector2(120, 180)
 texture = ExtResource("6_70vka")
 
+[node name="Hp1" type="Sprite2D" parent="CanvasLayer" unique_id=191182244]
+position = Vector2(21, 52)
+texture = ExtResource("8_70vka")
+
+[node name="Hp2" type="Sprite2D" parent="CanvasLayer" unique_id=936538298]
+position = Vector2(58, 52)
+texture = ExtResource("8_70vka")
+
+[node name="Hp3" type="Sprite2D" parent="CanvasLayer" unique_id=1290666564]
+position = Vector2(95, 52)
+texture = ExtResource("8_70vka")
+
+[node name="Hit" type="Sprite2D" parent="CanvasLayer" unique_id=713465082]
+visible = false
+position = Vector2(321, 179)
+texture = ExtResource("7_wi4c7")
+
+[connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
