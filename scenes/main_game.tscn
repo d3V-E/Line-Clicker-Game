@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bp1f18f7ic324" path="res://assets/Buy button.png" id="9_5cypo"]
 [ext_resource type="Texture2D" uid="uid://dgrlw7tsnflqa" path="res://assets/Shop.png" id="9_nqdth"]
 [ext_resource type="Texture2D" uid="uid://bsim58uomd8dx" path="res://assets/Close.png" id="10_5cypo"]
+[ext_resource type="Texture2D" uid="uid://dyfqf83xfcbdn" path="res://assets/Extra Life.aseprite.png" id="12_o6v7o"]
 
 [node name="Main Game" type="Node2D" unique_id=423972222]
 script = ExtResource("1_72e8q")
@@ -86,6 +87,7 @@ theme_override_font_sizes/normal_font_size = 26
 text = "LIVES"
 
 [node name="Shop" type="Sprite2D" parent="CanvasLayer" unique_id=1093649891]
+visible = false
 position = Vector2(320, 200)
 texture = ExtResource("9_nqdth")
 
@@ -205,6 +207,21 @@ visible = false
 position = Vector2(321, 179)
 texture = ExtResource("7_wi4c7")
 
+[node name="Extra Life" type="TextureButton" parent="CanvasLayer" unique_id=633229453]
+offset_left = 5.0
+offset_top = 78.0
+offset_right = 110.0
+offset_bottom = 113.0
+texture_normal = ExtResource("12_o6v7o")
+stretch_mode = 0
+
+[node name="Extra Cost" type="RichTextLabel" parent="CanvasLayer" unique_id=1325914031]
+offset_left = 5.0
+offset_top = 113.0
+offset_right = 110.0
+offset_bottom = 136.0
+text = "COST = 50"
+
 [connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
@@ -216,3 +233,5 @@ texture = ExtResource("7_wi4c7")
 [connection signal="button_up" from="CanvasLayer/Shop/Checkpoint Buy" to="." method="_on_checkpoint_buy_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_up"]
+[connection signal="button_down" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_down"]
+[connection signal="button_up" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_up"]

@@ -14,6 +14,7 @@ var totalscore = 0
 var multipliercost = 75
 var slowspeedcost = 150
 var checkpointcost = 300
+var extra = 50
 
 
 
@@ -31,6 +32,8 @@ var checkpointcost = 300
 @onready var multiplierbuy: TextureButton = $"CanvasLayer/Shop/Multiplier Buy"
 @onready var slowspeedbuy: TextureButton = $"CanvasLayer/Shop/Speed Buy"
 @onready var checkpoint: TextureButton = $"CanvasLayer/Shop/Checkpoint Buy"
+@onready var extralife: TextureButton = $"CanvasLayer/Extra Life"
+@onready var extracost: RichTextLabel = $"CanvasLayer/Extra Cost"
 
 
 
@@ -67,6 +70,8 @@ func load_data():
 
 func _ready():
 	load_data()
+	hideextra()
+	extralife.pivot_offset = extralife.size / 2
 	shopbutton.pivot_offset = shopbutton.size / 2
 	shopclose.pivot_offset = shopclose.size / 2
 	multiplierbuy.pivot_offset = multiplierbuy.size / 2
@@ -166,6 +171,7 @@ func updlives():
 		hp2.visible = true
 		hp3.visible = false
 	elif lives == 1:
+		showextra()
 		hp1.visible = true
 		hp2.visible = false
 		hp3.visible = false
@@ -268,3 +274,34 @@ func _on_checkpoint_buy_button_up():
 		speedcheckpoint += 5
 		checkpointcost += 125
 		$"CanvasLayer/Shop/Speed Checkpoint".text = "Speed Checkpoint\nCurrent Checkpoint = "+str(speedcheckpoint) + "\nCost = " +str(checkpointcost)
+
+
+func hideextra():
+	extralife.visible = false
+	extracost.visible = false
+
+
+func showextra():
+	extralife.visible = true
+	extracost.visible = true
+
+
+
+
+func _on_extra_life_button_down():
+	var tween = get_tree().create_tween()
+	tween.tween_property(extralife , "scale" , Vector2(.9 , .9), .1)
+
+
+
+
+func _on_extra_life_button_up():
+	var tween = get_tree().create_tween()
+	tween.tween_property(extralife , "scale" , Vector2(1 , 1), .1)
+	if score >= extra:
+		score -= extra
+		lives += 1
+		extra += 25
+		$"CanvasLayer/Extra Cost".text = "COST = "+ str(extra)
+		updlives()
+		hideextra()
