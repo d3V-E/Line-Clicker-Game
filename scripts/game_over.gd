@@ -11,7 +11,7 @@ func _ready():
 	elif quote == 2:
 		$CanvasLayer/Quote.text = "Time wasted today is time saved for tommorow"
 	elif quote == 3:
-		$CanvasLayer/Quote.text = "To confuse an eney first you must confuse yourself"
+		$CanvasLayer/Quote.text = "To confuse an enemy first you must confuse yourself"
 
 
 

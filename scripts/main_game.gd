@@ -1,6 +1,6 @@
 extends Node2D
 
-const save_path = "user://userdata.save"
+const save_path = "user://userdata.saves"
 var score = 0
 var speed = 300
 var test = 1
@@ -12,6 +12,11 @@ var clicks = 0
 var highscore = 0
 var totalscore = 0
 var multipliercost = 75
+var slowspeedcost = 150
+var checkpointcost = 300
+
+
+
 
 @onready var shopbutton: TextureButton = $"CanvasLayer/Shop Button"
 @onready var bar: Sprite2D = $CanvasLayer/LineBar
@@ -24,18 +29,21 @@ var multipliercost = 75
 @onready var shopmenu: Sprite2D = $CanvasLayer/Shop
 @onready var shopclose : TextureButton = $"CanvasLayer/Shop Close"
 @onready var multiplierbuy: TextureButton = $"CanvasLayer/Shop/Multiplier Buy"
+@onready var slowspeedbuy: TextureButton = $"CanvasLayer/Shop/Speed Buy"
+@onready var checkpoint: TextureButton = $"CanvasLayer/Shop/Checkpoint Buy"
+
+
+
 
 
 signal totalscore_changed
 signal score_changed
-signal multiplier_changed
 signal highscore_changed
 
 
 func save_data():
 	var data = {
 		"score": score,
-		"multiplier": multiplier,
 		"highscore": highscore,
 		"totalscore": totalscore,
 	}
@@ -50,7 +58,6 @@ func load_data():
 		file.close()
 		if typeof(data) == TYPE_DICTIONARY:
 			score = data.get("score" ,0)
-			multiplier = data.get("multiplier" ,1)
 			highscore = data.get("highscore" ,0)
 			totalscore = data.get("totalscore" ,0)
 	else:
@@ -62,6 +69,9 @@ func _ready():
 	load_data()
 	shopbutton.pivot_offset = shopbutton.size / 2
 	shopclose.pivot_offset = shopclose.size / 2
+	multiplierbuy.pivot_offset = multiplierbuy.size / 2
+	slowspeedbuy.pivot_offset = slowspeedbuy.size / 2
+	checkpoint.pivot_offset = checkpoint.size / 2
 	$CanvasLayer/Score.text = str(score)
 	hit.visible = false
 	shopmenu.visible = false
@@ -96,7 +106,7 @@ func _unhandled_input(event: InputEvent):
 			emit_signal("score_changed")
 			tween.tween_property(green , "scale" , Vector2(1 , 1), .1)
 			clicks += 1
-			if clicks > 0 and clicks % 10 == 0:
+			if clicks > 0 and clicks % 5 == 0:
 				speed += 25
 		else:
 			lives -= 1
@@ -141,6 +151,7 @@ func _on_shop_button_button_up():
 
 func _on_score_update_timeout():
 	$CanvasLayer/Score.text = str(score)
+	$"CanvasLayer/Shop/Total Score".text = str(totalscore)
 	emit_signal("score_changed")
 	save_data()
 
@@ -211,8 +222,49 @@ func _on_multiplier_buy_button_up():
 	tween.tween_property(multiplierbuy , "scale" , Vector2(1 , 1), .1)
 	if totalscore >= multipliercost:
 		totalscore -= multipliercost
-		multiplier = 1.2
+		multiplier += 0.2
 		multipliercost += 45
-		$CanvasLayer/Shop/Multiplier.text = "Multiplier Upgrade\nCurrent Multiplier = "+ multiplier "\nCost = " + multipliercost
+		$CanvasLayer/Shop/Multiplier.text = "Multiplier Upgrade\nCurrent Multiplier = "+ str(multiplier) + "\nCost = "+ str(multipliercost)
 		emit_signal("totalscore_changed")
-		emit_signal("multiplier_changed")
+
+
+
+
+
+func _on_speed_buy_button_down():
+	var tween = get_tree().create_tween()
+	tween.tween_property(slowspeedbuy , "scale" , Vector2(.9 , .9), .1)
+
+
+
+
+func _on_speed_buy_button_up():
+	var tween = get_tree().create_tween()
+	tween.tween_property(slowspeedbuy , "scale" , Vector2(1,1), .1)
+	if totalscore >= slowspeedcost:
+		totalscore -= slowspeedcost
+		speed -= 25
+		slowspeedcost += 75
+		$CanvasLayer/Shop/Speed.text = "Slow Speed\nCurrent Speed = "+ str(speed) + "\nCost = "+ str(slowspeedcost)
+		emit_signal("totalscore_changed")
+
+
+
+
+
+func _on_checkpoint_buy_button_down():
+	var tween = get_tree().create_tween()
+	tween.tween_property(checkpoint , "scale" , Vector2(.9 , .9) , .1)
+
+
+
+
+
+func _on_checkpoint_buy_button_up():
+	var tween = get_tree().create_tween()
+	tween.tween_property(checkpoint , "scale" , Vector2(1 , 1) , .1)
+	if totalscore >= checkpointcost:
+		totalscore -= checkpointcost
+		speedcheckpoint += 5
+		checkpointcost += 125
+		$"CanvasLayer/Shop/Speed Checkpoint".text = "Speed Checkpoint\nCurrent Checkpoint = "+str(speedcheckpoint) + "\nCost = " +str(checkpointcost)

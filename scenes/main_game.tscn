@@ -124,9 +124,45 @@ Cost = 75"
 
 [node name="Multiplier Buy" type="TextureButton" parent="CanvasLayer/Shop" unique_id=1651308040]
 offset_left = -224.0
-offset_top = -24.0
+offset_top = -27.0
 offset_right = -148.0
-offset_bottom = 14.0
+offset_bottom = 11.0
+texture_normal = ExtResource("9_5cypo")
+stretch_mode = 0
+
+[node name="Speed" type="RichTextLabel" parent="CanvasLayer/Shop" unique_id=31927097]
+offset_left = -224.0
+offset_top = 17.0
+offset_right = -54.0
+offset_bottom = 76.0
+theme_override_font_sizes/normal_font_size = 13
+text = "Slow Speed
+Current Speed = 300
+Cost = 150"
+
+[node name="Speed Buy" type="TextureButton" parent="CanvasLayer/Shop" unique_id=722023911]
+offset_left = -224.0
+offset_top = 76.0
+offset_right = -148.0
+offset_bottom = 114.0
+texture_normal = ExtResource("9_5cypo")
+stretch_mode = 0
+
+[node name="Speed Checkpoint" type="RichTextLabel" parent="CanvasLayer/Shop" unique_id=1084073873]
+offset_left = -18.0
+offset_top = -86.0
+offset_right = 178.0
+offset_bottom = -27.0
+theme_override_font_sizes/normal_font_size = 13
+text = "Speed Checkpoint
+Current Checkpoint = 10
+Cost = 300"
+
+[node name="Checkpoint Buy" type="TextureButton" parent="CanvasLayer/Shop" unique_id=126731943]
+offset_left = -18.0
+offset_top = -27.0
+offset_right = 58.0
+offset_bottom = 11.0
 texture_normal = ExtResource("9_5cypo")
 stretch_mode = 0
 
@@ -174,5 +210,9 @@ texture = ExtResource("7_wi4c7")
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_up"]
+[connection signal="button_down" from="CanvasLayer/Shop/Speed Buy" to="." method="_on_speed_buy_button_down"]
+[connection signal="button_up" from="CanvasLayer/Shop/Speed Buy" to="." method="_on_speed_buy_button_up"]
+[connection signal="button_down" from="CanvasLayer/Shop/Checkpoint Buy" to="." method="_on_checkpoint_buy_button_down"]
+[connection signal="button_up" from="CanvasLayer/Shop/Checkpoint Buy" to="." method="_on_checkpoint_buy_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_up"]
