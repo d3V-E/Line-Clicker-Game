@@ -40,13 +40,11 @@ var extra = 50
 
 
 signal totalscore_changed
-signal score_changed
 signal highscore_changed
 
 
 func save_data():
 	var data = {
-		"score": score,
 		"highscore": highscore,
 		"totalscore": totalscore,
 	}
@@ -108,7 +106,6 @@ func _unhandled_input(event: InputEvent):
 			tween.tween_property(green , "scale" , Vector2(1.1 , 1.1) , .1)
 			score += (2 * multiplier)
 			$CanvasLayer/Score.text = str(score)
-			emit_signal("score_changed")
 			tween.tween_property(green , "scale" , Vector2(1 , 1), .1)
 			clicks += 1
 			if clicks > 0 and clicks % 5 == 0:
@@ -125,7 +122,6 @@ func _unhandled_input(event: InputEvent):
 			if get_tree():
 				await get_tree().create_timer(0.1).timeout
 			hit.visible = false
-			emit_signal("score_changed")
 		reset_marker()
 
 
@@ -157,7 +153,6 @@ func _on_shop_button_button_up():
 func _on_score_update_timeout():
 	$CanvasLayer/Score.text = str(score)
 	$"CanvasLayer/Shop/Total Score".text = str(totalscore)
-	emit_signal("score_changed")
 	save_data()
 
 
