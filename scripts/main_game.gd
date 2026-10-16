@@ -1,6 +1,6 @@
 extends Node2D
 
-const save_path = "user://userdata.saves"
+const save_path = "user://userdata.saved"
 var score = 0
 var speed = 300
 var test = 1
@@ -15,7 +15,7 @@ var multipliercost = 75
 var slowspeedcost = 150
 var checkpointcost = 300
 var extra = 50
-
+var combo = 0
 
 
 
@@ -34,7 +34,7 @@ var extra = 50
 @onready var checkpoint: TextureButton = $"CanvasLayer/Shop/Checkpoint Buy"
 @onready var extralife: TextureButton = $"CanvasLayer/Extra Life"
 @onready var extracost: RichTextLabel = $"CanvasLayer/Extra Cost"
-
+@onready var combotext : RichTextLabel = $CanvasLayer/Combo
 
 
 
@@ -75,6 +75,8 @@ func _ready():
 	multiplierbuy.pivot_offset = multiplierbuy.size / 2
 	slowspeedbuy.pivot_offset = slowspeedbuy.size / 2
 	checkpoint.pivot_offset = checkpoint.size / 2
+	combotext.visible = false
+	$CanvasLayer/Combo.text = "COMBO = 0x"
 	$CanvasLayer/Score.text = str(score)
 	hit.visible = false
 	shopmenu.visible = false
@@ -105,6 +107,9 @@ func _unhandled_input(event: InputEvent):
 			var tween = get_tree().create_tween()
 			tween.tween_property(green , "scale" , Vector2(1.1 , 1.1) , .1)
 			score += (2 * multiplier)
+			combo += 1
+			combotext.visible = true
+			$CanvasLayer/Combo.text = "COMBO = "+ str(combo)+ "x"
 			$CanvasLayer/Score.text = str(score)
 			tween.tween_property(green , "scale" , Vector2(1 , 1), .1)
 			clicks += 1
@@ -112,6 +117,9 @@ func _unhandled_input(event: InputEvent):
 				speed += 25
 		else:
 			lives -= 1
+			combo = 0
+			combotext.visible = false
+			$CanvasLayer/Combo.text = "COMBO = "+ str(combo)+ "x"
 			if score >= 1:
 				score -= 1
 			$CanvasLayer/Score.text = str(score)

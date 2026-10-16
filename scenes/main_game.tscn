@@ -86,6 +86,74 @@ offset_bottom = 36.0
 theme_override_font_sizes/normal_font_size = 26
 text = "LIVES"
 
+[node name="Shop Close" type="TextureButton" parent="CanvasLayer" unique_id=812630958]
+visible = false
+offset_left = 512.0
+offset_top = 86.0
+offset_right = 544.0
+offset_bottom = 118.0
+texture_normal = ExtResource("10_5cypo")
+stretch_mode = 0
+
+[node name="Highscore Header" type="RichTextLabel" parent="CanvasLayer" unique_id=1162866656]
+offset_left = 216.0
+offset_top = 5.0
+offset_right = 317.0
+offset_bottom = 29.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 17
+text = "High Score"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_direction = 2
+
+[node name="Highscore" type="RichTextLabel" parent="CanvasLayer" unique_id=588167767]
+offset_left = 216.0
+offset_top = 29.0
+offset_right = 360.0
+offset_bottom = 68.0
+theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 28
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+text_direction = 2
+
+[node name="Extra Life" type="TextureButton" parent="CanvasLayer" unique_id=633229453]
+visible = false
+offset_left = 5.0
+offset_top = 78.0
+offset_right = 110.0
+offset_bottom = 113.0
+texture_normal = ExtResource("12_o6v7o")
+stretch_mode = 0
+
+[node name="Extra Cost" type="RichTextLabel" parent="CanvasLayer" unique_id=1325914031]
+visible = false
+offset_left = 5.0
+offset_top = 113.0
+offset_right = 110.0
+offset_bottom = 136.0
+text = "COST = 50"
+
+[node name="Combo" type="RichTextLabel" parent="CanvasLayer" unique_id=26918410]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = 21.0
+offset_right = 101.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "COMBO = 0x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Shop" type="Sprite2D" parent="CanvasLayer" unique_id=1093649891]
 visible = false
 position = Vector2(320, 200)
@@ -168,73 +236,21 @@ offset_bottom = 11.0
 texture_normal = ExtResource("9_5cypo")
 stretch_mode = 0
 
-[node name="Shop Close" type="TextureButton" parent="CanvasLayer" unique_id=812630958]
-visible = false
-offset_left = 512.0
-offset_top = 86.0
-offset_right = 544.0
-offset_bottom = 118.0
-texture_normal = ExtResource("10_5cypo")
-stretch_mode = 0
-
-[node name="Highscore Header" type="RichTextLabel" parent="CanvasLayer" unique_id=1162866656]
-offset_left = 216.0
-offset_top = 5.0
-offset_right = 317.0
-offset_bottom = 29.0
-theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/normal_font_size = 17
-text = "High Score"
-horizontal_alignment = 2
-vertical_alignment = 1
-text_direction = 2
-
-[node name="Highscore" type="RichTextLabel" parent="CanvasLayer" unique_id=588167767]
-offset_left = 216.0
-offset_top = 29.0
-offset_right = 360.0
-offset_bottom = 68.0
-theme_override_colors/font_outline_color = Color(0.8239239, 0.82392395, 0.8239239, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/normal_font_size = 28
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-text_direction = 2
-
 [node name="Hit" type="Sprite2D" parent="CanvasLayer" unique_id=713465082]
 visible = false
 position = Vector2(321, 179)
 texture = ExtResource("7_wi4c7")
 
-[node name="Extra Life" type="TextureButton" parent="CanvasLayer" unique_id=633229453]
-visible = false
-offset_left = 5.0
-offset_top = 78.0
-offset_right = 110.0
-offset_bottom = 113.0
-texture_normal = ExtResource("12_o6v7o")
-stretch_mode = 0
-
-[node name="Extra Cost" type="RichTextLabel" parent="CanvasLayer" unique_id=1325914031]
-visible = false
-offset_left = 5.0
-offset_top = 113.0
-offset_right = 110.0
-offset_bottom = 136.0
-text = "COST = 50"
-
 [connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_down"]
+[connection signal="button_up" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_up"]
+[connection signal="button_down" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_down"]
+[connection signal="button_up" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop/Speed Buy" to="." method="_on_speed_buy_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop/Speed Buy" to="." method="_on_speed_buy_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop/Checkpoint Buy" to="." method="_on_checkpoint_buy_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop/Checkpoint Buy" to="." method="_on_checkpoint_buy_button_up"]
-[connection signal="button_down" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_down"]
-[connection signal="button_up" from="CanvasLayer/Shop Close" to="." method="_on_shop_close_button_up"]
-[connection signal="button_down" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_down"]
-[connection signal="button_up" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_up"]
