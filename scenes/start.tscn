@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dil7io0k1lwjd"]
+
+[ext_resource type="Script" uid="uid://bqscwdp62vgng" path="res://scenes/start.gd" id="1_bodal"]
+[ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_u80x2"]
+[ext_resource type="Texture2D" uid="uid://ba8n7goe33j70" path="res://assets/1.png" id="2_bodal"]
+[ext_resource type="Texture2D" uid="uid://3305w7cubpbw" path="res://assets/Line Bar.png" id="3_y16t7"]
+[ext_resource type="Texture2D" uid="uid://s6qjtkeqsq5d" path="res://assets/Green Indicator.png" id="4_4ge6i"]
+[ext_resource type="Texture2D" uid="uid://plt2drchkexg" path="res://assets/Indicator.png" id="5_8itgj"]
+
+[node name="Start" type="Node2D" unique_id=1918404206]
+script = ExtResource("1_bodal")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=443795764]
+
+[node name="MainBackground" type="Sprite2D" parent="CanvasLayer" unique_id=586003453]
+position = Vector2(320, 180)
+texture = ExtResource("1_u80x2")
+
+[node name="Game Header" type="RichTextLabel" parent="CanvasLayer" unique_id=978563705]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = 320.0
+offset_bottom = 73.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(1.3837591e-07, 0.31598943, 0.13725275, 0.24313726)
+theme_override_constants/shadow_outline_size = 8
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/normal_font_size = 53
+text = "LINE CLICKER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineBar" type="Sprite2D" parent="CanvasLayer" unique_id=2110445753]
+position = Vector2(322, 180)
+rotation = -0.44251183
+texture = ExtResource("3_y16t7")
+
+[node name="GreenIndicator" type="Sprite2D" parent="CanvasLayer/LineBar" unique_id=1963942364]
+position = Vector2(-106, 0)
+texture = ExtResource("4_4ge6i")
+
+[node name="Indicator" type="Sprite2D" parent="CanvasLayer/LineBar" unique_id=1585279601]
+position = Vector2(-122.57531, -0.54007304)
+scale = Vector2(0.9999999, 0.9999999)
+texture = ExtResource("5_8itgj")
+
+[node name="Start" type="TextureButton" parent="CanvasLayer" unique_id=624574377]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.5
+offset_top = -22.5
+offset_right = 67.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("2_bodal")
+stretch_mode = 0
+
+[connection signal="button_down" from="CanvasLayer/Start" to="." method="_on_start_button_down"]
+[connection signal="button_up" from="CanvasLayer/Start" to="." method="_on_start_button_up"]

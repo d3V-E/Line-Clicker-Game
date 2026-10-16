@@ -110,6 +110,10 @@ func _unhandled_input(event: InputEvent):
 			score += (2 * multiplier)
 			combo += 1
 			combotext.visible = true
+			if combo % 15 == 0:
+				needle.modulate = Color(randf(), randf() , randf() , 1)
+			if combo >= 50:
+				score += 1
 			$CanvasLayer/Combo.text = "COMBO = "+ str(combo)+ "x"
 			$CanvasLayer/Score.text = str(score)
 			tween.tween_property(green , "scale" , Vector2(1 , 1), .1)

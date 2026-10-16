@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Line Clicker Game"
-run/main_scene="uid://dqvarotspa7o"
+run/main_scene="uid://dil7io0k1lwjd"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
