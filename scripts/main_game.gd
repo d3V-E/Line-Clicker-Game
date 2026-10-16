@@ -1,6 +1,6 @@
 extends Node2D
 
-const save_path = "user://userdata.saved"
+const save_path = "user://userdata.sav"
 var score = 0
 var speed = 300
 var test = 1
@@ -84,6 +84,7 @@ func _ready():
 	shopclose.visible = false
 	$CanvasLayer/Highscore.text = str(highscore)
 	$"CanvasLayer/Shop/Total Score".text = str(totalscore)
+	$CanvasLayer/Shop/ShopInfo/Info.text = "Example Information"
 	randomize()
 	reset_marker()
 
@@ -233,8 +234,11 @@ func _on_multiplier_buy_button_up():
 		totalscore -= multipliercost
 		multiplier += 0.2
 		multipliercost += 45
+		$CanvasLayer/Shop/ShopInfo/Info.text = "Bought Multiplier Boost"
 		$CanvasLayer/Shop/Multiplier.text = "Multiplier Upgrade\nCurrent Multiplier = "+ str(multiplier) + "\nCost = "+ str(multipliercost)
 		emit_signal("totalscore_changed")
+	else:
+		$CanvasLayer/Shop/ShopInfo/Info.text = "Not enough score."
 
 
 
@@ -254,8 +258,11 @@ func _on_speed_buy_button_up():
 		totalscore -= slowspeedcost
 		speed -= 25
 		slowspeedcost += 75
+		$CanvasLayer/Shop/ShopInfo/Info.text = "Bought Upgrade"
 		$CanvasLayer/Shop/Speed.text = "Slow Speed\nCurrent Speed = "+ str(speed) + "\nCost = "+ str(slowspeedcost)
 		emit_signal("totalscore_changed")
+	else:
+		$CanvasLayer/Shop/ShopInfo/Info.text = "Get more score"
 
 
 
@@ -276,7 +283,13 @@ func _on_checkpoint_buy_button_up():
 		totalscore -= checkpointcost
 		speedcheckpoint += 5
 		checkpointcost += 125
+		$CanvasLayer/Shop/ShopInfo/Info.text = "Speed Checkpoint Increased"
 		$"CanvasLayer/Shop/Speed Checkpoint".text = "Speed Checkpoint\nCurrent Checkpoint = "+str(speedcheckpoint) + "\nCost = " +str(checkpointcost)
+		emit_signal("totalscore_changed")
+	else:
+		$CanvasLayer/Shop/ShopInfo/Info.text = "Need more score to buy"
+
+
 
 
 func hideextra():
