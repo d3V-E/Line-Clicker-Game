@@ -1,6 +1,6 @@
 extends Node2D
 
-const save_path = "user://userdata.sav"
+const save_path = "user://userdata.savefile"
 var score = 0
 var speed = 300
 var test = 1
@@ -41,12 +41,24 @@ var combo = 0
 
 signal totalscore_changed
 signal highscore_changed
+signal speed_changed
+signal slowspeedcost_changed
+signal multiplier_changed
+signal multipliercost_changed
+signal speedcheckpoint_changed
+signal speedcheckpointcost_changed
 
 
 func save_data():
 	var data = {
 		"highscore": highscore,
 		"totalscore": totalscore,
+		"speed": speed,
+		"slowspeedcost": slowspeedcost,
+		"multiplier": multiplier,
+		"multipliercost": multipliercost,
+		"speedcheckpoint": speedcheckpoint,
+		"checkpointcost": checkpointcost,
 	}
 	var file = FileAccess.open(save_path ,FileAccess.WRITE)
 	file.store_var(data)
@@ -61,6 +73,12 @@ func load_data():
 			score = data.get("score" ,0)
 			highscore = data.get("highscore" ,0)
 			totalscore = data.get("totalscore" ,0)
+			speed = data.get("speed" , 300)
+			slowspeedcost = data.get("slowspeedcost" , 150)
+			multiplier = data.get("multiplier" , 1)
+			multipliercost = data.get("multipliercost" , 75)
+			speedcheckpoint = data.get("speedcheckpont" , 10)
+			checkpointcost = data.get("checkpointcost" , 300)
 	else:
 		save_data()
 
@@ -91,7 +109,6 @@ func _ready():
 
 func _process(delta: float):
 	needle.position.x += speed * test * delta
-	
 	if needle.position.x >= bar.position.x + width:
 		test = -1
 	elif needle.position.x <= bar.position.x - width:
@@ -219,7 +236,9 @@ func _on_shop_close_button_up():
 	shopclose.visible = false
 	shopmenu.visible = false
 	shopbutton.visible = true
-
+	$CanvasLayer/Shop/Multiplier.text = "Multiplier Upgrade\nCurrent Multiplier = "+ str(multiplier) + "\nCost = "+ str(multipliercost)
+	$CanvasLayer/Shop/Speed.text = "Slow Speed\nCurrent Speed = "+ str(speed) + "\nCost = "+ str(slowspeedcost)
+	$"CanvasLayer/Shop/Speed Checkpoint".text = "Speed Checkpoint\nCurrent Checkpoint = "+str(speedcheckpoint) + "\nCost = " +str(checkpointcost)
 
 
 
@@ -241,6 +260,8 @@ func _on_multiplier_buy_button_up():
 		$CanvasLayer/Shop/ShopInfo/Info.text = "Bought Multiplier Boost"
 		$CanvasLayer/Shop/Multiplier.text = "Multiplier Upgrade\nCurrent Multiplier = "+ str(multiplier) + "\nCost = "+ str(multipliercost)
 		emit_signal("totalscore_changed")
+		emit_signal("multipliercost_changed")
+		emit_signal("multiplier_changed")
 	else:
 		$CanvasLayer/Shop/ShopInfo/Info.text = "Not enough score."
 
@@ -260,11 +281,13 @@ func _on_speed_buy_button_up():
 	tween.tween_property(slowspeedbuy , "scale" , Vector2(1,1), .1)
 	if totalscore >= slowspeedcost:
 		totalscore -= slowspeedcost
-		speed -= 25
+		speed -= 5
 		slowspeedcost += 75
 		$CanvasLayer/Shop/ShopInfo/Info.text = "Bought Upgrade"
 		$CanvasLayer/Shop/Speed.text = "Slow Speed\nCurrent Speed = "+ str(speed) + "\nCost = "+ str(slowspeedcost)
 		emit_signal("totalscore_changed")
+		emit_signal("slowspeedcost_changed")
+		emit_signal("speed_changed")
 	else:
 		$CanvasLayer/Shop/ShopInfo/Info.text = "Get more score"
 
@@ -290,6 +313,8 @@ func _on_checkpoint_buy_button_up():
 		$CanvasLayer/Shop/ShopInfo/Info.text = "Speed Checkpoint Increased"
 		$"CanvasLayer/Shop/Speed Checkpoint".text = "Speed Checkpoint\nCurrent Checkpoint = "+str(speedcheckpoint) + "\nCost = " +str(checkpointcost)
 		emit_signal("totalscore_changed")
+		emit_signal("speedcheckpointcost_changed")
+		emit_signal("speedcheckpoint_changed")
 	else:
 		$CanvasLayer/Shop/ShopInfo/Info.text = "Need more score to buy"
 
