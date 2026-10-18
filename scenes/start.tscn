@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://dil7io0k1lwjd"]
 
-[ext_resource type="Script" uid="uid://bqscwdp62vgng" path="res://scenes/start.gd" id="1_bodal"]
+[ext_resource type="Script" uid="uid://bqscwdp62vgng" path="res://scripts/start.gd" id="1_bodal"]
 [ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_u80x2"]
 [ext_resource type="Texture2D" uid="uid://ba8n7goe33j70" path="res://assets/1.png" id="2_bodal"]
 [ext_resource type="Texture2D" uid="uid://3305w7cubpbw" path="res://assets/Line Bar.png" id="3_y16t7"]
 [ext_resource type="Texture2D" uid="uid://s6qjtkeqsq5d" path="res://assets/Green Indicator.png" id="4_4ge6i"]
 [ext_resource type="Texture2D" uid="uid://plt2drchkexg" path="res://assets/Indicator.png" id="5_8itgj"]
+[ext_resource type="Texture2D" uid="uid://tq4c85xjdwt4" path="res://assets/2.png" id="7_4ge6i"]
 
 [node name="Start" type="Node2D" unique_id=1918404206]
 script = ExtResource("1_bodal")
@@ -62,5 +63,22 @@ grow_vertical = 2
 texture_normal = ExtResource("2_bodal")
 stretch_mode = 0
 
+[node name="Instructions" type="TextureButton" parent="CanvasLayer" unique_id=1253119499]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 176.0
+offset_top = 127.0
+offset_right = 311.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("7_4ge6i")
+stretch_mode = 0
+
 [connection signal="button_down" from="CanvasLayer/Start" to="." method="_on_start_button_down"]
 [connection signal="button_up" from="CanvasLayer/Start" to="." method="_on_start_button_up"]
+[connection signal="button_down" from="CanvasLayer/Instructions" to="." method="_on_instructions_button_down"]
+[connection signal="button_up" from="CanvasLayer/Instructions" to="." method="_on_instructions_button_up"]

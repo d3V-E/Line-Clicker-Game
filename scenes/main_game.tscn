@@ -147,6 +147,26 @@ text = "COMBO = 0x"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Scoreinfo" type="RichTextLabel" parent="CanvasLayer" unique_id=1134100805]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -59.0
+offset_right = 101.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(101, 18)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="visual upd" type="Timer" parent="CanvasLayer/Scoreinfo" unique_id=1746177789]
+wait_time = 5.0
+autostart = true
+
 [node name="Shop" type="Sprite2D" parent="CanvasLayer" unique_id=1093649891]
 visible = false
 position = Vector2(320, 200)
@@ -254,7 +274,7 @@ stretch_mode = 0
 
 [node name="Hit" type="Sprite2D" parent="CanvasLayer" unique_id=713465082]
 visible = false
-position = Vector2(321, 179)
+position = Vector2(321, 60)
 texture = ExtResource("7_wi4c7")
 
 [connection signal="timeout" from="CanvasLayer/Score/Score Update" to="." method="_on_score_update_timeout"]
@@ -262,6 +282,7 @@ texture = ExtResource("7_wi4c7")
 [connection signal="button_up" from="CanvasLayer/Shop Button" to="." method="_on_shop_button_button_up"]
 [connection signal="button_down" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_down"]
 [connection signal="button_up" from="CanvasLayer/Extra Life" to="." method="_on_extra_life_button_up"]
+[connection signal="timeout" from="CanvasLayer/Scoreinfo/visual upd" to="." method="_on_visual_upd_timeout"]
 [connection signal="button_down" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_down"]
 [connection signal="button_up" from="CanvasLayer/Shop/Multiplier Buy" to="." method="_on_multiplier_buy_button_up"]
 [connection signal="button_down" from="CanvasLayer/Shop/Speed Buy" to="." method="_on_speed_buy_button_down"]

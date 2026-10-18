@@ -16,6 +16,7 @@ var slowspeedcost = 150
 var checkpointcost = 300
 var extra = 50
 var combo = 0
+var clickcheck = 0
 
 
 
@@ -103,6 +104,7 @@ func _ready():
 	$CanvasLayer/Highscore.text = str(highscore)
 	$"CanvasLayer/Shop/Total Score".text = str(totalscore)
 	$CanvasLayer/Shop/ShopInfo/Info.text = "Example Information"
+	$CanvasLayer/Indicator.modulate.a = 1
 	randomize()
 	reset_marker()
 
@@ -129,14 +131,18 @@ func _unhandled_input(event: InputEvent):
 			combotext.visible = true
 			if combo % 15 == 0:
 				needle.modulate = Color(randf(), randf() , randf() , 1)
+				if $CanvasLayer/Indicator.modulate.a > 0.3:
+					$CanvasLayer/Indicator.modulate.a -= 0.05
 			if combo >= 50:
 				score += 1
 			$CanvasLayer/Combo.text = "COMBO = "+ str(combo)+ "x"
 			$CanvasLayer/Score.text = str(score)
+			$CanvasLayer/Scoreinfo.text = "+ 2 score"
 			tween.tween_property(green , "scale" , Vector2(1 , 1), .1)
 			clicks += 1
 			if clicks > 0 and clicks % 5 == 0:
 				speed += 25
+				clickcheck += 1
 		else:
 			lives -= 1
 			combo = 0
@@ -152,10 +158,16 @@ func _unhandled_input(event: InputEvent):
 			if get_tree():
 				await get_tree().create_timer(0.1).timeout
 			hit.visible = false
+			$CanvasLayer/Scoreinfo.text = "- 1 score and - 1 life"
 		reset_marker()
 
 
 func reset_marker():
+	var x = randi_range(1 , 2)
+	if x == 1:
+		test = 1
+	elif x == 2:
+		test = -1
 	green.scale.x = randf_range(0.3 , 1.0)
 	green.position.x = randf_range(-width + 50 , width - 50)
 
@@ -205,12 +217,13 @@ func updlives():
 		hp2.visible = false
 		hp3.visible = false
 		totalscore += score
+		speed = speed - (clickcheck * 25)
 		emit_signal("totalscore_changed")
 		if score > highscore:
 			highscore = score
 			emit_signal("highscore_changed")
+		$CanvasLayer/Indicator.modulate.a = 1
 		lives = 3
-		speed = 300
 		score = 0
 		clicks = 0
 		save_data()
@@ -350,3 +363,11 @@ func _on_extra_life_button_up():
 		$"CanvasLayer/Extra Cost".text = "COST = "+ str(extra)
 		updlives()
 		hideextra()
+
+
+
+
+
+
+func _on_visual_upd_timeout():
+	$CanvasLayer/Scoreinfo.text = ""

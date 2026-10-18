@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://yg4onlkwiw3o"]
+
+[ext_resource type="Texture2D" uid="uid://dvwct8y6t0ov5" path="res://assets/Main Background.png" id="1_dkfqi"]
+[ext_resource type="Script" uid="uid://cux0drbf3i6u1" path="res://scripts/instructions.gd" id="1_olnwl"]
+[ext_resource type="Texture2D" uid="uid://bx2kur24fkwxu" path="res://assets/Next.png" id="2_nisbi"]
+[ext_resource type="Texture2D" uid="uid://iun30ebry2bg" path="res://assets/Previous.png" id="3_njqp3"]
+[ext_resource type="Texture2D" uid="uid://3305w7cubpbw" path="res://assets/Line Bar.png" id="4_2n4j6"]
+[ext_resource type="Texture2D" uid="uid://s6qjtkeqsq5d" path="res://assets/Green Indicator.png" id="5_olnwl"]
+[ext_resource type="Texture2D" uid="uid://plt2drchkexg" path="res://assets/Indicator.png" id="6_i5xgr"]
+[ext_resource type="Texture2D" uid="uid://byqftffmv0lon" path="res://assets/SHOP Button.png" id="7_jxpsd"]
+[ext_resource type="Texture2D" uid="uid://dyfqf83xfcbdn" path="res://assets/Extra Life.aseprite.png" id="8_gvtqk"]
+
+[node name="Instructions" type="Node2D" unique_id=815831102]
+script = ExtResource("1_olnwl")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=850250505]
+
+[node name="MainBackground" type="Sprite2D" parent="CanvasLayer" unique_id=1010892319]
+position = Vector2(320, 180)
+texture = ExtResource("1_dkfqi")
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer" unique_id=1620839928]
+offset_left = 12.0
+offset_right = 634.0
+offset_bottom = 73.0
+theme_override_font_sizes/normal_font_size = 38
+text = "Instructions / Guide"
+vertical_alignment = 1
+
+[node name="Next" type="TextureButton" parent="CanvasLayer" unique_id=1170295809]
+offset_left = 594.0
+offset_top = 314.0
+offset_right = 635.0
+offset_bottom = 355.0
+texture_normal = ExtResource("2_nisbi")
+stretch_mode = 0
+
+[node name="Previous" type="TextureButton" parent="CanvasLayer" unique_id=373574145]
+offset_left = 5.0
+offset_top = 314.0
+offset_right = 46.0
+offset_bottom = 355.0
+texture_normal = ExtResource("3_njqp3")
+stretch_mode = 0
+
+[node name="Context" type="RichTextLabel" parent="CanvasLayer" unique_id=2100261276]
+offset_left = 8.0
+offset_top = 185.0
+offset_right = 632.0
+offset_bottom = 306.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 22
+text = "Example"
+
+[node name="LineBar" type="Sprite2D" parent="CanvasLayer" unique_id=1661661210]
+position = Vector2(314, 131)
+texture = ExtResource("4_2n4j6")
+
+[node name="GreenIndicator" type="Sprite2D" parent="CanvasLayer" unique_id=1225211520]
+position = Vector2(194, 131)
+texture = ExtResource("5_olnwl")
+
+[node name="Indicator" type="Sprite2D" parent="CanvasLayer" unique_id=56757081]
+position = Vector2(187, 131)
+texture = ExtResource("6_i5xgr")
+
+[node name="Greensecond" type="Sprite2D" parent="CanvasLayer" unique_id=27092877]
+position = Vector2(460, 131)
+texture = ExtResource("5_olnwl")
+
+[node name="ShopButton" type="Sprite2D" parent="CanvasLayer" unique_id=243985912]
+position = Vector2(127, 131)
+scale = Vector2(1.6718745, 1.6718745)
+texture = ExtResource("7_jxpsd")
+
+[node name="ExtraLife" type="Sprite2D" parent="CanvasLayer" unique_id=1076958094]
+position = Vector2(356, 131)
+scale = Vector2(1.6874996, 1.6874996)
+texture = ExtResource("8_gvtqk")
+
+[connection signal="button_down" from="CanvasLayer/Next" to="." method="_on_next_button_down"]
+[connection signal="button_up" from="CanvasLayer/Next" to="." method="_on_next_button_up"]
+[connection signal="button_down" from="CanvasLayer/Previous" to="." method="_on_previous_button_down"]
+[connection signal="button_up" from="CanvasLayer/Previous" to="." method="_on_previous_button_up"]
